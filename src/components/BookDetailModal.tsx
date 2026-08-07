@@ -10,9 +10,9 @@ interface BookDetailModalProps {
 }
 
 export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose }) => {
-  if (!book) return null;
-
   const [activeTab, setActiveTab] = useState<'overview' | 'characters' | 'map' | 'magic' | 'excerpts'>('overview');
+
+  if (!book) return null;
 
   const bookCharacters = CHARACTERS_DATA.filter(c => c.bookTitle === book.title);
   const photoId = book.title.includes('Throne') ? 'book_cover_lost_soul' : 'book_cover_until_death';

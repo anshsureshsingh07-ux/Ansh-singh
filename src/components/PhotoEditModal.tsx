@@ -47,6 +47,11 @@ export const PhotoEditModal: React.FC = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<PixelCrop | null>(null);
   const [isProcessingCrop, setIsProcessingCrop] = useState(false);
 
+  // Crop callback
+  const onCropComplete = useCallback((_croppedArea: any, croppedPixels: PixelCrop) => {
+    setCroppedAreaPixels(croppedPixels);
+  }, []);
+
   useEffect(() => {
     if (editingPhoto) {
       setTitle(editingPhoto.title || '');
@@ -80,11 +85,6 @@ export const PhotoEditModal: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  // Crop callback
-  const onCropComplete = useCallback((_croppedArea: any, croppedPixels: PixelCrop) => {
-    setCroppedAreaPixels(croppedPixels);
-  }, []);
 
   // Apply crop
   const handleApplyCrop = async () => {
