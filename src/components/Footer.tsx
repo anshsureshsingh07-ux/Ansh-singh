@@ -31,6 +31,7 @@ export const Footer: React.FC = () => {
           <a href="#philosophy" className="hover:text-amber-300 transition-colors">Philosophy</a>
           <a href="#reader-hub" className="hover:text-amber-300 transition-colors">Reader Hub</a>
           <a href="#contact" className="hover:text-amber-300 transition-colors">Contact</a>
+          <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">Sitemap</a>
         </div>
 
         {/* Social Icons */}

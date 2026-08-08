@@ -43,8 +43,8 @@ async function startServer() {
     res.send("google-site-verification: google5d28093608aa21f8.html");
   });
 
-  // Sitemap.xml Route
-  app.get("/sitemap.xml", (_req, res) => {
+  // Sitemap XML Handler
+  const sendSitemap = (_req: express.Request, res: express.Response) => {
     const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -96,14 +96,18 @@ async function startServer() {
     <priority>0.7</priority>
   </url>
 </urlset>`;
-    res.setHeader("Content-Type", "application/xml");
-    res.send(sitemapXml);
-  });
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.status(200).send(sitemapXml);
+  };
+
+  app.get("/sitemap.xml", sendSitemap);
+  app.get("/sitemap", sendSitemap);
+  app.get("/sitemap_index.xml", sendSitemap);
 
   // Robots.txt Route
   app.get("/robots.txt", (_req, res) => {
-    res.setHeader("Content-Type", "text/plain");
-    res.send("User-agent: *\nAllow: /\n\nSitemap: https://anshsingh.com/sitemap.xml\n");
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.status(200).send("User-agent: *\nAllow: /\n\nSitemap: https://anshsingh.com/sitemap.xml\n");
   });
 
   // AI Chat Endpoint for Reader Hub
@@ -177,18 +181,6 @@ Respond to reader questions with warmth, eloquence, cinematic enthusiasm, and au
   // Serve static files from public directory (e.g. sitemap.xml, robots.txt, verification files)
   const publicPath = path.join(process.cwd(), "public");
   app.use(express.static(publicPath));
-
-  app.get("/google5d28093608aa21f8.html", (_req, res) => {
-    res.type("text/html").send("google-site-verification: google5d28093608aa21f8.html");
-  });
-
-  app.get("/sitemap.xml", (_req, res) => {
-    res.sendFile(path.join(publicPath, "sitemap.xml"));
-  });
-
-  app.get("/robots.txt", (_req, res) => {
-    res.sendFile(path.join(publicPath, "robots.txt"));
-  });
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
