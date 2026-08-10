@@ -89,12 +89,15 @@ CREATE POLICY "Only admin can manage photos" ON public.photos
   USING ((auth.jwt() ->> 'email') = 'anshsureshsingh07@gmail.com')
   WITH CHECK ((auth.jwt() ->> 'email') = 'anshsureshsingh07@gmail.com');
 
--- 5. CREATE TABLE: GUESTBOOK
+-- 5. CREATE TABLE: GUESTBOOK & REVIEWS
 CREATE TABLE IF NOT EXISTS public.guestbook (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   name TEXT NOT NULL,
+  email TEXT DEFAULT 'anshsureshsingh07@gmail.com',
   location TEXT,
   message TEXT NOT NULL,
+  rating INT DEFAULT 5,
+  book_title TEXT DEFAULT 'General Review',
   badge TEXT DEFAULT 'Reader',
   likes INT DEFAULT 1,
   is_approved BOOLEAN DEFAULT TRUE,
@@ -112,6 +115,27 @@ CREATE POLICY "Anyone can post to guestbook" ON public.guestbook
 
 CREATE POLICY "Only admin can update guestbook" ON public.guestbook 
   FOR UPDATE TO authenticated 
+  USING ((auth.jwt() ->> 'email') = 'anshsureshsingh07@gmail.com');
+
+-- 6. CREATE TABLE: CONTACT MESSAGES
+CREATE TABLE IF NOT EXISTS public.contact_messages (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  target_email TEXT DEFAULT 'anshsureshsingh07@gmail.com',
+  subject TEXT,
+  message TEXT NOT NULL,
+  status TEXT DEFAULT 'delivered',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can submit contact message" ON public.contact_messages 
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Only admin can view contact messages" ON public.contact_messages 
+  FOR SELECT TO authenticated 
   USING ((auth.jwt() ->> 'email') = 'anshsureshsingh07@gmail.com');
 
 -- 6. STORAGE BUCKET CONFIGURATION: 'photos'

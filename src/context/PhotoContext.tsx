@@ -140,6 +140,24 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [photos]);
 
+  // Load photos from Server API on mount
+  useEffect(() => {
+    const fetchServerPhotos = async () => {
+      try {
+        const res = await fetch('/api/photos');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.photos && Object.keys(data.photos).length > 0) {
+            setPhotos((prev) => ({ ...prev, ...data.photos }));
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch photos from server:', err);
+      }
+    };
+    fetchServerPhotos();
+  }, []);
+
   // Load photos from Supabase if available
   useEffect(() => {
     if (isSupabaseConfigured) {
@@ -204,15 +222,32 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const updatePhoto = async (id: string, updatedData: Partial<EditablePhoto>) => {
-    setPhotos((prev) => {
-      const current = prev[id] || {
-        id,
-        title: 'Untitled Photo',
-        imageUrl: '',
-      };
-      const updatedItem = { ...current, ...updatedData };
-      return { ...prev, [id]: updatedItem };
-    });
+    const current = photos[id] || {
+      id,
+      title: 'Untitled Photo',
+      imageUrl: '',
+    };
+    const updatedItem = { ...current, ...updatedData };
+
+    // Optimistic update locally
+    setPhotos((prev) => ({ ...prev, [id]: updatedItem }));
+
+    // Send to Server backend
+    try {
+      const res = await fetch('/api/photos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'update', photo: updatedItem }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.photo) {
+          setPhotos((prev) => ({ ...prev, [id]: data.photo }));
+        }
+      }
+    } catch (err) {
+      console.error('Error saving photo to server:', err);
+    }
 
     // Update in Supabase if configured
     if (isSupabaseConfigured) {
@@ -236,6 +271,24 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const newPhoto: EditablePhoto = { ...newPhotoData, id };
 
     setPhotos((prev) => ({ [id]: newPhoto, ...prev }));
+
+    // Send to Server backend
+    try {
+      const res = await fetch('/api/photos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'update', photo: newPhoto }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.photo) {
+          setPhotos((prev) => ({ ...prev, [id]: data.photo }));
+          return data.photo;
+        }
+      }
+    } catch (err) {
+      console.error('Error adding photo to server:', err);
+    }
 
     if (isSupabaseConfigured) {
       try {
@@ -262,6 +315,16 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return next;
     });
 
+    try {
+      await fetch('/api/photos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', id }),
+      });
+    } catch (err) {
+      console.error('Error deleting photo on server:', err);
+    }
+
     if (isSupabaseConfigured) {
       try {
         await supabase.from('photos').delete().eq('id', id);
@@ -271,12 +334,22 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const resetPhoto = (id: string) => {
+  const resetPhoto = async (id: string) => {
     if (initialPhotosMap[id]) {
+      const defaultItem = initialPhotosMap[id];
       setPhotos((prev) => ({
         ...prev,
-        [id]: initialPhotosMap[id],
+        [id]: defaultItem,
       }));
+      try {
+        await fetch('/api/photos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'update', photo: defaultItem }),
+        });
+      } catch (err) {
+        console.error('Error resetting photo on server:', err);
+      }
     }
   };
 

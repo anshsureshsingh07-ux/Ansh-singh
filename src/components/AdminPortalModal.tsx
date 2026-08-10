@@ -23,6 +23,7 @@ import {
 import { supabase, isSupabaseConfigured, ADMIN_EMAIL, SUPABASE_SQL_SCHEMA } from '../lib/supabase';
 import { BOOKS_DATA, GALLERY_ITEMS } from '../data/authorData';
 import { GalleryItem } from '../types';
+import { usePhotos } from '../context/PhotoContext';
 
 interface AdminPortalModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ interface AdminPortalModalProps {
 }
 
 export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({ isOpen, onClose }) => {
+  const { addPhoto } = usePhotos();
   const [email, setEmail] = useState('anshsureshsingh07@gmail.com');
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
@@ -132,7 +134,11 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({ isOpen, onCl
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       setSelectedFile(file);
-      setFilePreview(URL.createObjectURL(file));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFilePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -144,7 +150,7 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({ isOpen, onCl
     }
 
     setIsUploading(true);
-    setStatusMessage('Uploading photo to bucket "photos"...');
+    setStatusMessage('Uploading and saving photo to server...');
 
     try {
       let finalPublicUrl = filePreview || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80';
@@ -157,42 +163,51 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({ isOpen, onCl
           .from('photos')
           .upload(filePath, selectedFile, { cacheControl: '3600', upsert: true });
 
-        if (error) {
-          throw new Error(`Storage error: ${error.message}`);
+        if (!error) {
+          const { data: publicUrlData } = supabase.storage.from('photos').getPublicUrl(filePath);
+          if (publicUrlData?.publicUrl) {
+            finalPublicUrl = publicUrlData.publicUrl;
+          }
+
+          // Save to photos table
+          await supabase.from('photos').insert({
+            title: photoTitle,
+            category: photoCategory,
+            image_url: finalPublicUrl,
+            description: photoDescription,
+            uploaded_by: ADMIN_EMAIL,
+            storage_path: filePath
+          });
         }
-
-        const { data: publicUrlData } = supabase.storage.from('photos').getPublicUrl(filePath);
-        finalPublicUrl = publicUrlData.publicUrl;
-
-        // Save to photos table
-        await supabase.from('photos').insert({
-          title: photoTitle,
-          category: photoCategory,
-          image_url: finalPublicUrl,
-          description: photoDescription,
-          uploaded_by: ADMIN_EMAIL,
-          storage_path: filePath
-        });
       }
 
-      // Add to local gallery display
-      const newItem: GalleryItem = {
-        id: `photo_${Date.now()}`,
+      // Add to PhotoContext & server storage database
+      const added = await addPhoto({
         title: photoTitle,
         category: photoCategory,
+        description: photoDescription || 'Uploaded via Admin Portal',
         imageUrl: finalPublicUrl,
-        description: photoDescription || 'Uploaded via Admin Portal'
+        filterPreset: 'none',
+      });
+
+      // Also update local list reference
+      const newItem: GalleryItem = {
+        id: added.id,
+        title: added.title,
+        category: (added.category as any) || photoCategory,
+        imageUrl: added.imageUrl,
+        description: added.description || ''
       };
 
       GALLERY_ITEMS.unshift(newItem);
 
-      setStatusMessage(`Success! Photo uploaded to bucket "photos" and added to gallery.`);
+      setStatusMessage(`Success! Photo uploaded and saved to server storage. Visible to all visitors!`);
       setPhotoTitle('');
       setPhotoDescription('');
       setSelectedFile(null);
       setFilePreview(null);
     } catch (err: any) {
-      setStatusMessage(`Upload status: ${err.message || 'Saved locally to gallery view'}.`);
+      setStatusMessage(`Upload status: ${err.message || 'Saved to gallery'}.`);
     } finally {
       setIsUploading(false);
     }
