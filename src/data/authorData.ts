@@ -222,6 +222,14 @@ export const FRIENDS_DATA: Friend[] = [
   { name: "Kamal Gupta", role: "Tech Explorer", trait: "Innovative Strategist", avatarColor: "from-emerald-500 to-teal-600", quote: "Building future-forward ideas." },
   { name: "Abhir Khare", role: "Story Enthusiast", trait: "Vibrant Imagination", avatarColor: "from-purple-500 to-violet-600", quote: "Fueling epic story debates!" },
   { name: "Ishika Yadav", role: "Creative Advisor", trait: "Artistic Vision", avatarColor: "from-fuchsia-500 to-purple-600", quote: "Bringing warmth and creative energy." },
+  { name: "Payal Pandey", role: "Classmate & Supporter", trait: "Warm & Encouraging", avatarColor: "from-pink-500 to-rose-600", quote: "Always spreading positive vibes and literary support!" },
+  { name: "Mayank Gandhi", role: "Trusted Companion", trait: "Steadfast Friend", avatarColor: "from-cyan-500 to-blue-600", quote: "Standing strong through every chapter of life." },
+  { name: "Dev Solanki", role: "Fellow Explorer", trait: "Adventurous Mind", avatarColor: "from-orange-500 to-amber-600", quote: "Exploring new horizons and bold ideas." },
+  { name: "Ashutosh Pratap", role: "Academic & Creative Supporter", trait: "Keen Mind & Loyalty", avatarColor: "from-teal-500 to-emerald-600", quote: "Bringing sharp insights and great conversation." },
+  { name: "Manveer", role: "Memorable Friend", trait: "Valued Connection", avatarColor: "from-indigo-500 to-purple-600", quote: "Last conversation: January 2026 — a bond that stays strong across time." },
+  { name: "Kkrishna Yadav", role: "Enthusiastic Peer", trait: "Energetic Supporter", avatarColor: "from-lime-500 to-green-600", quote: "Cheering on every new story milestone!" },
+  { name: "Aryan (manjiro.fx)", role: "Digital Creator & Friend", trait: "Creative Visual Style", avatarColor: "from-violet-500 to-fuchsia-600", quote: "Bringing visual flair and creative aesthetics." },
+  { name: "Ayush (chad_blahblahblah)", role: "Good Friend & Companion", trait: "Unfiltered Humor & Energy", avatarColor: "from-red-500 to-orange-600", quote: "Bringing legendary banter and non-stop good energy." },
 ];
 
 export const SKILLS_DATA = [
