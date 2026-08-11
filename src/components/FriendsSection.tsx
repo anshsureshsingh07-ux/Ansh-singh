@@ -35,6 +35,7 @@ export const FriendsSection: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FRIENDS_DATA.map((friend, idx) => {
             const isHighlighted = idx === highlightIdx;
+            const isBestFriend = friend.name === 'Devbrat Dhal' || friend.role.includes('Best Friend');
 
             return (
               <motion.div
@@ -43,22 +44,32 @@ export const FriendsSection: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
                 className={`p-6 rounded-2xl bg-slate-900/80 border transition-all duration-500 shadow-xl relative overflow-hidden group cursor-pointer ${
-                  isHighlighted
+                  isBestFriend
+                    ? 'border-amber-400/90 bg-gradient-to-b from-slate-900 via-slate-900 to-amber-950/30 shadow-2xl shadow-amber-500/25 sm:col-span-2 lg:col-span-1'
+                    : isHighlighted
                     ? 'border-amber-400/80 bg-slate-900 scale-105 shadow-2xl shadow-amber-500/20'
                     : 'border-slate-800 hover:border-amber-500/40'
                 }`}
               >
+                {/* Priority Best Friend Ribbon */}
+                {isBestFriend && (
+                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-bold text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md">
+                    <Sparkles className="w-3 h-3 text-slate-950 fill-slate-950" />
+                    <span>#1 Best Friend</span>
+                  </div>
+                )}
+
                 {/* Rotating Highlight Aura */}
-                {isHighlighted && (
+                {isHighlighted && !isBestFriend && (
                   <div className="absolute top-0 right-0 p-3">
                     <Sparkles className="w-5 h-5 text-amber-400 animate-bounce" />
                   </div>
                 )}
 
                 <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${friend.avatarColor} p-0.5 shadow-lg`}>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${friend.avatarColor} p-0.5 shadow-lg flex-shrink-0`}>
                     <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
                       <span className="font-serif font-bold text-amber-300 text-lg">
                         {friend.name.charAt(0)}
@@ -67,10 +78,10 @@ export const FriendsSection: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition-colors">
+                    <h3 className="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
                       {friend.name}
                     </h3>
-                    <span className="text-xs text-amber-400/90 font-medium">{friend.role}</span>
+                    <span className="text-xs text-amber-400 font-semibold">{friend.role}</span>
                   </div>
                 </div>
 

@@ -216,8 +216,8 @@ export const INTERESTS_DATA = [
 ];
 
 export const FRIENDS_DATA: Friend[] = [
+  { name: "Devbrat Dhal", role: "Best Friend & Primary Confidant", trait: "Best Friend & Analytical Mind", avatarColor: "from-amber-400 via-yellow-500 to-amber-600", quote: "Ansh's closest best friend—sharpening logic, stories, and sharing every major milestone!" },
   { name: "Shivang Thakur", role: "Creative Companion", trait: "Inspirational Thinker", avatarColor: "from-amber-500 to-yellow-600", quote: "Always pushing creative limits!" },
-  { name: "Devbrat Dhal", role: "Academic Ally", trait: "Analytical Mind", avatarColor: "from-blue-500 to-indigo-600", quote: "Sharpening logic and story coherence." },
   { name: "Aanchal Dakua", role: "Literary Reader", trait: "Perceptive Feedback", avatarColor: "from-rose-500 to-pink-600", quote: "First to read and encourage new chapters!" },
   { name: "Kamal Gupta", role: "Tech Explorer", trait: "Innovative Strategist", avatarColor: "from-emerald-500 to-teal-600", quote: "Building future-forward ideas." },
   { name: "Abhir Khare", role: "Story Enthusiast", trait: "Vibrant Imagination", avatarColor: "from-purple-500 to-violet-600", quote: "Fueling epic story debates!" },
