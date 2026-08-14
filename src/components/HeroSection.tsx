@@ -1,26 +1,52 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { BookOpen, Compass, Instagram, Twitter, Github, Mail, Sparkles, Feather } from 'lucide-react';
-import { AUTHOR_INFO } from '../data/authorData';
+import { BookOpen, Compass, Instagram, Twitter, Github, Mail, Sparkles, Feather, ShoppingBag, PartyPopper } from 'lucide-react';
+import { AUTHOR_INFO, BOOKS_DATA } from '../data/authorData';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden z-10">
       {/* Subtle glowing orb backgrounds */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
-        {/* Top Eyebrow Badge */}
+        {/* Top Eyebrow Badge & Big News Announcement Card */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium tracking-wide shadow-lg shadow-amber-500/10 mb-8"
+          className="flex flex-col items-center gap-3 mb-6"
         >
-          <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
-          <span>Official Author Website</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium tracking-wide shadow-lg shadow-amber-500/10">
+            <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
+            <span>Official Author Website</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+          </div>
+
+          {/* BIG NEWS BANNER IN HERO */}
+          <motion.a
+            href="#books"
+            whileHover={{ scale: 1.02 }}
+            className="group relative inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-400/15 to-orange-500/20 border-2 border-amber-400/60 shadow-xl shadow-amber-500/20 hover:border-amber-300 hover:shadow-amber-500/30 transition-all text-left"
+          >
+            <div className="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm shadow-md flex-shrink-0 animate-bounce">
+              <PartyPopper className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] uppercase tracking-widest font-black text-amber-300 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-400/40">
+                  🎉 BIG NEWS
+                </span>
+                <span className="text-xs text-amber-200 font-bold">
+                  Birthday Special Release • 16th August
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-100 font-medium mt-0.5">
+                <strong className="text-amber-300">Volume 1</strong> of <em className="text-white">"The Lost Soul of Throne"</em> is releasing in <strong className="text-amber-200">Paperback Edition</strong> — <span className="underline decoration-amber-400 font-semibold text-amber-300">Exclusive Only on Amazon</span>!
+              </p>
+            </div>
+          </motion.a>
         </motion.div>
 
         {/* Author Name Display */}

@@ -65,6 +65,13 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
     iconName: "Library",
   },
   {
+    year: "16 August (Birthday Edition)",
+    title: "Paperback Release: The Lost Soul of Throne (Vol. 1)",
+    description: "Big milestone: Volume 1 of 'The Lost Soul of Throne' officially releases as a paperback edition on Ansh's birthday (16th August), exclusively on Amazon!",
+    iconName: "Sparkles",
+    highlight: true,
+  },
+  {
     year: "Ongoing Goal",
     title: "Refining Craft & World Building",
     description: "Continuing to balance academics at Shree Gurukrupa Vidya Sankul while mastering storytelling techniques.",
@@ -83,19 +90,29 @@ export const BOOKS_DATA: Record<string, BookLore> = {
   lostSoul: {
     title: "The Lost Soul of Throne",
     genre: "Epic Fantasy",
-    status: "In Development",
+    status: "Paperback Releasing Aug 16",
     subtitle: "A vast fantasy saga of kingdoms, ancient magic, and political destiny",
     tagline: "Every decision changes the fate of an entire world.",
     coverImage: lostSoulCoverImg,
-    progressPercent: 68,
+    progressPercent: 100,
+    releaseAnnouncement: {
+      isAnnounced: true,
+      format: "Paperback Edition",
+      volume: "Volume 1",
+      releaseDate: "16th August (Author's Birthday)",
+      exclusivePlatform: "Exclusive Only on Amazon",
+      badgeText: "🎉 Big News • Birthday Release",
+      details: "Volume 1 of 'The Lost Soul of Throne' is officially making its debut as a physical Paperback Edition on Ansh's birthday, 16th August, exclusively available on Amazon!"
+    },
     description: "A vast fantasy saga filled with kingdoms, political intrigue, ancient powers, legendary warriors, dragons, gods, betrayal, sacrifice, and the struggle for the throne. Every decision changes the fate of an entire world.",
     featuresList: [
+      "Paperback Release (Vol. 1)",
+      "Amazon Exclusive",
       "Character Encyclopedia",
       "Kingdom Map",
-      "Timeline",
+      "Timeline & Lore",
       "Family Trees",
-      "Magic System",
-      "World Lore"
+      "Magic System"
     ],
     magicSystem: {
       name: "The Aetherium Resonance",

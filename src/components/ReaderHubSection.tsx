@@ -86,12 +86,13 @@ const PERSONAS: Record<PersonaType, PersonaConfig> = {
     badge: 'Author Q&A',
     avatarBg: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
     avatarText: '✍️',
-    welcomeMsg: "Hey there! I'm AI Ansh Singh! Thank you so much for reading my works. I'm a 15-year-old student author from Surat writing epic sagas. Ask me about my writing routine, school, Tonny my pet rabbit, or upcoming chapter drops!",
+    welcomeMsg: "Hey there! I'm AI Ansh Singh! 🎉 Huge announcement: Volume 1 of 'The Lost Soul of Throne' is officially releasing as a physical Paperback Edition on my birthday, 16th August, exclusively on Amazon! Ask me about the release, my writing routine, or Tonny my pet rabbit!",
     prompts: [
+      "🎉 Tell me about the 16th August Paperback release on Amazon!",
       "✍️ How do you balance school and writing novels?",
       "🐇 Tell me all about your pet rabbit Tonny!",
       "🌟 Who inspired you to become an author?",
-      "📖 When will 'The Lost Soul of Throne' launch?"
+      "👑 What can readers expect in Volume 1 of The Lost Soul of Throne?"
     ]
   }
 };

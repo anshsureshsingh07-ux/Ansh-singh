@@ -43,6 +43,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://singhanshsuresh.vercel.app/#repinsh</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://singhanshsuresh.vercel.app/#projects</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://singhanshsuresh.vercel.app/#contact</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>

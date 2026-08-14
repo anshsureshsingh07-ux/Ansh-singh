@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, BookOpen, Shield, Flame, MapPin, Users, Sparkles, Quote as QuoteIcon, Feather, FileText } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, BookOpen, Shield, Flame, MapPin, Users, Sparkles, Quote as QuoteIcon, Feather, FileText, ShoppingCart, PartyPopper, Calendar } from 'lucide-react';
 import { BookLore } from '../types';
 import { CHARACTERS_DATA } from '../data/authorData';
 import { EditableImage } from './EditableImage';
@@ -12,23 +12,50 @@ interface BookDetailModalProps {
 export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'characters' | 'map' | 'magic' | 'excerpts'>('overview');
 
+  useEffect(() => {
+    if (!book) return;
+
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [book, onClose]);
+
   if (!book) return null;
 
   const bookCharacters = CHARACTERS_DATA.filter(c => c.bookTitle === book.title);
   const photoId = book.title.includes('Throne') ? 'book_cover_lost_soul' : 'book_cover_until_death';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-slate-950 border border-amber-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl my-8 overflow-hidden">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-slate-950 border-2 border-amber-500/30 rounded-3xl p-5 sm:p-8 shadow-2xl my-auto overflow-y-auto custom-scrollbar"
+      >
         {/* Ambient background aura */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-6 right-6 p-2.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-amber-400 transition-all z-20"
+          className="absolute top-5 right-5 sm:top-6 sm:right-6 p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-amber-400 transition-all z-20 flex items-center gap-1.5 text-xs font-semibold"
+          aria-label="Close book details"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 text-amber-400" />
+          <span className="hidden sm:inline">Close</span>
         </button>
 
         {/* Modal Header */}
@@ -49,9 +76,15 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose 
                 {book.genre}
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className={`w-2 h-2 rounded-full ${book.releaseAnnouncement ? 'bg-emerald-400' : 'bg-amber-400'} animate-pulse`} />
                 {book.status}
               </span>
+              {book.releaseAnnouncement && (
+                <span className="px-3 py-1 rounded-full bg-amber-500 text-slate-950 text-xs font-extrabold flex items-center gap-1">
+                  <PartyPopper className="w-3.5 h-3.5" />
+                  Birthday Release • 16th Aug
+                </span>
+              )}
             </div>
 
             <h2 className="font-serif text-2xl sm:text-4xl font-extrabold text-slate-100 mt-1">
@@ -132,6 +165,37 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose 
           {/* Overview Tab */}
           {activeTab === 'overview' && (
             <div className="space-y-6">
+              {/* Release announcement box if available */}
+              {book.releaseAnnouncement && (
+                <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-orange-500/10 border-2 border-amber-400/50 shadow-xl">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider">
+                      <PartyPopper className="w-3.5 h-3.5" />
+                      Paperback Release Announcement
+                    </span>
+                    <span className="text-xs font-bold text-amber-300 flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      16th August (Birthday Edition)
+                    </span>
+                  </div>
+                  <h4 className="font-serif text-lg font-bold text-slate-100 mt-2 mb-1">
+                    Volume 1 of "The Lost Soul of Throne" Releasing in Paperback
+                  </h4>
+                  <p className="text-sm text-slate-300 leading-relaxed mb-3">
+                    {book.releaseAnnouncement.details}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950 border border-amber-400/50 text-amber-300 text-xs font-bold">
+                      <ShoppingCart className="w-4 h-4 text-amber-400" />
+                      <span>Platform: Exclusive Only on Amazon</span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 text-xs font-medium">
+                      <span>Format: Premium Physical Paperback Edition</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div>
                 <h3 className="text-xs uppercase font-bold text-amber-400 tracking-wider mb-3">Key Literary Elements</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

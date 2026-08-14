@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Menu, X, BookOpen, Compass, Sparkles, Feather, Send, User, Shield } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, BookOpen, Compass, Sparkles, Feather, Send, User, Shield, Cpu, Clock, Image as ImageIcon, Bot, ShieldAlert, Edit3 } from 'lucide-react';
+import { useUserIdentity } from '../context/UserIdentityContext';
 
 interface NavbarProps {
   soundEnabled: boolean;
@@ -11,6 +12,7 @@ export const Navbar: React.FC<NavbarProps> = ({ soundEnabled, onToggleSound, onO
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { currentUser, openEditProfileModal, openSafetyLogModal, isCurrentUserBanned } = useUserIdentity();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,8 +30,11 @@ export const Navbar: React.FC<NavbarProps> = ({ soundEnabled, onToggleSound, onO
     { name: 'About', href: '#about', icon: User },
     { name: 'Journey', href: '#journey', icon: Compass },
     { name: 'Books', href: '#books', icon: BookOpen },
+    { name: 'Projects', href: '#projects', icon: Clock },
+    { name: 'Gallery', href: '#gallery', icon: ImageIcon },
     { name: 'Philosophy', href: '#philosophy', icon: Feather },
     { name: 'Reader Hub', href: '#reader-hub', icon: Sparkles },
+    { name: 'REPINSH™', href: '#repinsh', icon: Cpu, isHighlight: true },
     { name: 'Contact', href: '#contact', icon: Send },
   ];
 
@@ -65,29 +70,60 @@ export const Navbar: React.FC<NavbarProps> = ({ soundEnabled, onToggleSound, onO
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          <nav className="hidden md:flex items-center gap-1 lg:gap-1.5">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 transition-all flex items-center gap-1.5"
+                className={`px-2.5 py-1.5 rounded-lg text-xs lg:text-sm font-medium transition-all flex items-center gap-1.5 ${
+                  link.isHighlight
+                    ? 'text-cyan-300 bg-cyan-950/40 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-900/40 hover:text-cyan-200'
+                    : 'text-slate-300 hover:text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20'
+                }`}
               >
-                <link.icon className="w-3.5 h-3.5 text-amber-400/80" />
+                <link.icon className={`w-3.5 h-3.5 ${link.isHighlight ? 'text-cyan-400' : 'text-amber-400/80'}`} />
                 {link.name}
               </a>
             ))}
           </nav>
 
-          {/* Actions: Admin Portal, Ambient Sound Toggle & Mobile Menu Trigger */}
-          <div className="flex items-center gap-2.5">
+          {/* Actions: User Identity / Edit Name, Safety Logs, Admin Portal, Sound Toggle & Mobile Menu Trigger */}
+          <div className="flex items-center gap-2">
+            {/* Edit Name / Profile Button */}
+            <button
+              onClick={openEditProfileModal}
+              id="navbar-edit-profile-btn"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/60 text-slate-200 hover:text-amber-300 transition-all text-xs font-semibold flex items-center gap-1.5 shadow-sm group"
+              title="Edit your display name and safe profile"
+            >
+              <div className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-bold text-[10px] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                {currentUser.displayName.charAt(0) || 'U'}
+              </div>
+              <span className="hidden sm:inline max-w-[100px] truncate font-medium">
+                {currentUser.displayName}
+              </span>
+              <Edit3 className="w-3 h-3 text-amber-400 group-hover:rotate-12 transition-transform" />
+            </button>
+
+            {/* LORE AI Safety Logs Button */}
+            <button
+              onClick={openSafetyLogModal}
+              id="navbar-safety-logs-btn"
+              className="p-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-slate-900/80 border border-slate-700/80 hover:border-red-400/50 text-slate-300 hover:text-red-300 transition-all text-xs font-semibold flex items-center gap-1.5 shadow-sm"
+              title="LORE AI Safety Guardian & Moderation Logs"
+            >
+              <Bot className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden xl:inline text-[11px]">LORE AI Safety</span>
+            </button>
+
             <button
               onClick={onOpenAdmin}
               id="admin-portal-btn"
-              className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs font-bold flex items-center gap-1.5 shadow-md"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500 hover:text-slate-950 transition-all text-xs font-bold flex items-center gap-1.5 shadow-md"
               title="Supabase & Admin Control Panel"
             >
               <Shield className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Admin / SQL</span>
+              <span className="hidden lg:inline">Admin / SQL</span>
             </button>
 
             <button
@@ -114,18 +150,51 @@ export const Navbar: React.FC<NavbarProps> = ({ soundEnabled, onToggleSound, onO
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-amber-500/20 px-6 py-6 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
-          <nav className="flex flex-col gap-3">
+          {/* User profile quick action */}
+          <div className="mb-4 pb-4 border-b border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center">
+                {currentUser.displayName.charAt(0) || 'U'}
+              </div>
+              <div>
+                <span className="font-bold text-sm text-slate-100 block">{currentUser.displayName}</span>
+                <span className="text-[11px] text-slate-400">@{currentUser.handle}</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openEditProfileModal();
+              }}
+              className="px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold"
+            >
+              Edit Name
+            </button>
+          </div>
+
+          <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 flex items-center gap-3"
+                className="px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-200 hover:text-amber-300 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 flex items-center gap-3"
               >
-                <link.icon className="w-5 h-5 text-amber-400" />
+                <link.icon className="w-4 h-4 text-amber-400" />
                 {link.name}
               </a>
             ))}
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openSafetyLogModal();
+              }}
+              className="mt-2 text-left px-3.5 py-2.5 rounded-lg text-sm font-medium text-red-300 hover:bg-red-950/30 border border-red-500/20 flex items-center gap-3"
+            >
+              <Bot className="w-4 h-4 text-red-400" />
+              <span>LORE AI Safety & Ban Log</span>
+            </button>
           </nav>
         </div>
       )}

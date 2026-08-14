@@ -11,10 +11,10 @@ export const CurrentProjectsSection: React.FC = () => {
       title: BOOKS_DATA.lostSoul.title,
       genre: BOOKS_DATA.lostSoul.genre,
       progress: BOOKS_DATA.lostSoul.progressPercent,
-      stage: 'Volume 1 Drafting & World Lore Mapping',
-      eta: 'Late 2026',
+      stage: '🎉 Volume 1 Paperback Release on Author\'s Birthday (16th August) — Amazon Exclusive',
+      eta: '16th August (Birthday)',
       cover: BOOKS_DATA.lostSoul.coverImage,
-      description: 'Actively detailing dragon bloodlines, Valyrian political councils, and character arcs.',
+      description: 'Big News! Volume 1 is debuting as a physical Paperback Edition on 16th August, exclusively available on Amazon.',
     },
     {
       id: 'book_cover_until_death',

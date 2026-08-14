@@ -18,11 +18,18 @@ import { SkillsSection } from './components/SkillsSection';
 import { GallerySection } from './components/GallerySection';
 import { CurrentProjectsSection } from './components/CurrentProjectsSection';
 import { ReaderHubSection } from './components/ReaderHubSection';
+import { RepinshSection } from './components/RepinshSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { QuickExploreDock } from './components/QuickExploreDock';
 import { AdminPortalModal } from './components/AdminPortalModal';
 import { PhotoProvider } from './context/PhotoContext';
 import { PhotoEditModal } from './components/PhotoEditModal';
+import { UserIdentityProvider } from './context/UserIdentityContext';
+import { EditProfileModal } from './components/EditProfileModal';
+import { ReportContentModal } from './components/ReportContentModal';
+import { LoreAiSafetyLogModal } from './components/LoreAiSafetyLogModal';
+import { BannedUserNoticeBanner } from './components/BannedUserNoticeBanner';
 
 export default function App() {
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -92,46 +99,64 @@ export default function App() {
 
   return (
     <PhotoProvider>
-      <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
-        {/* Three.js / Canvas Interactive Animated Starfield & Particles */}
-        <StarfieldCanvas />
+      <UserIdentityProvider>
+        <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 relative overflow-x-hidden">
+          {/* Temporary Ban Notice Banner if Visitor is Suspended */}
+          <BannedUserNoticeBanner />
 
-        {/* Header Navigation with Scroll Progress */}
-        <Navbar
-          soundEnabled={soundEnabled}
-          onToggleSound={toggleSound}
-          onOpenAdmin={() => setIsAdminOpen(true)}
-        />
+          {/* Three.js / Canvas Interactive Animated Starfield & Particles */}
+          <StarfieldCanvas />
 
-        {/* Main Content Sections */}
-        <main className="relative z-10 space-y-12 sm:space-y-20">
-          <HeroSection />
-          <AboutSection />
-          <TimelineSection />
-          <FeaturedBooksSection />
-          <WritingPhilosophy />
-          <InterestsSection />
-          <InspirationMentorSection />
-          <FriendsSection />
-          <SkillsSection />
-          <GallerySection />
-          <CurrentProjectsSection />
-          <ReaderHubSection />
-          <ContactSection />
-        </main>
+          {/* Header Navigation with Scroll Progress */}
+          <Navbar
+            soundEnabled={soundEnabled}
+            onToggleSound={toggleSound}
+            onOpenAdmin={() => setIsAdminOpen(true)}
+          />
 
-        {/* Footer */}
-        <Footer />
+          {/* Main Content Sections */}
+          <main className="relative z-10 space-y-12 sm:space-y-20">
+            <HeroSection />
+            <AboutSection />
+            <TimelineSection />
+            <FeaturedBooksSection />
+            <WritingPhilosophy />
+            <InterestsSection />
+            <InspirationMentorSection />
+            <FriendsSection />
+            <SkillsSection />
+            <GallerySection />
+            <CurrentProjectsSection />
+            <ReaderHubSection />
+            <RepinshSection />
+            <ContactSection />
+          </main>
 
-        {/* Global Photo Edit Modal for Editing Any Image on Site */}
-        <PhotoEditModal />
+          {/* Footer */}
+          <Footer />
 
-        {/* Supabase & Admin Control Portal */}
-        <AdminPortalModal
-          isOpen={isAdminOpen}
-          onClose={() => setIsAdminOpen(false)}
-        />
-      </div>
+          {/* Quick Cross & Explore Dock for Seamless Navigation */}
+          <QuickExploreDock />
+
+          {/* Global Photo Edit Modal for Editing Any Image on Site */}
+          <PhotoEditModal />
+
+          {/* User Profile & Safe Name Edit Modal */}
+          <EditProfileModal />
+
+          {/* Content Report & LORE AI Deep Scan Modal */}
+          <ReportContentModal />
+
+          {/* LORE AI Safety & Moderation Log Modal */}
+          <LoreAiSafetyLogModal />
+
+          {/* Supabase & Admin Control Portal */}
+          <AdminPortalModal
+            isOpen={isAdminOpen}
+            onClose={() => setIsAdminOpen(false)}
+          />
+        </div>
+      </UserIdentityProvider>
     </PhotoProvider>
   );
 }

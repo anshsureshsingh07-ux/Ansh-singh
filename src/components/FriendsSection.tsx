@@ -14,7 +14,7 @@ export const FriendsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="friends" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

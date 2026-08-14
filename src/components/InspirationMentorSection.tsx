@@ -4,7 +4,7 @@ import { BookOpen, GraduationCap, Award, Sparkles, Feather } from 'lucide-react'
 
 export const InspirationMentorSection: React.FC = () => {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-slate-950/40">
+    <section id="mentors" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-slate-950/40">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

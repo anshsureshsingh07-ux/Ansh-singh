@@ -24,12 +24,15 @@ export const Footer: React.FC = () => {
         </p>
 
         {/* Nav Links */}
-        <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold text-slate-400 mb-8 border-y border-slate-900 py-4 w-full max-w-xl">
+        <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold text-slate-400 mb-8 border-y border-slate-900 py-4 w-full max-w-2xl">
           <a href="#about" className="hover:text-amber-300 transition-colors">About</a>
           <a href="#journey" className="hover:text-amber-300 transition-colors">Journey</a>
           <a href="#books" className="hover:text-amber-300 transition-colors">Books</a>
+          <a href="#projects" className="hover:text-amber-300 transition-colors">Projects</a>
+          <a href="#gallery" className="hover:text-amber-300 transition-colors">Gallery</a>
           <a href="#philosophy" className="hover:text-amber-300 transition-colors">Philosophy</a>
           <a href="#reader-hub" className="hover:text-amber-300 transition-colors">Reader Hub</a>
+          <a href="#repinsh" className="text-cyan-400 hover:text-cyan-300 transition-colors font-bold">REPINSH™</a>
           <a href="#contact" className="hover:text-amber-300 transition-colors">Contact</a>
           <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">Sitemap</a>
         </div>
