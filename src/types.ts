@@ -11,6 +11,8 @@ export interface Character {
 }
 
 export interface BookLore {
+  id?: string;
+  volumeNumber?: number;
   title: string;
   genre: string;
   status: string;
@@ -20,14 +22,17 @@ export interface BookLore {
   coverImage: string;
   progressPercent: number;
   featuresList: string[];
+  amazonUrl?: string;
   releaseAnnouncement?: {
     isAnnounced: boolean;
-    format: string; // e.g. "Paperback Edition"
+    isLaunched?: boolean;
+    format: string; // e.g. "Paperback Edition (Out Now)"
     volume: string; // e.g. "Volume 1"
-    releaseDate: string; // e.g. "16th August (Author's Birthday)"
+    releaseDate: string; // e.g. "Launched 16th August (Birthday Launch)"
     exclusivePlatform: string; // e.g. "Amazon Exclusive"
     badgeText: string;
     details: string;
+    amazonUrl?: string;
   };
   magicSystem?: {
     name: string;

@@ -1,6 +1,7 @@
 import { BookLore, Character, Friend, GalleryItem, GuestbookEntry, QuizQuestion, Quote, TimelineEvent } from '../types';
 
 import lostSoulCoverImg from '../assets/images/lost_soul_cover_1786097505761.jpg';
+import tlsotVol2CoverImg from '../assets/images/tlsot_vol2_cover_1786964240599.jpg';
 import untilDeathCoverImg from '../assets/images/until_death_cover_1786097518804.jpg';
 import authorPortraitImg from '../assets/images/author_portrait_1786097530540.jpg';
 import tonnyRabbitImg from '../assets/images/tonny_rabbit_1786097544491.jpg';
@@ -66,9 +67,16 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
   },
   {
     year: "16 August (Birthday Edition)",
-    title: "Paperback Release: The Lost Soul of Throne (Vol. 1)",
-    description: "Big milestone: Volume 1 of 'The Lost Soul of Throne' officially releases as a paperback edition on Ansh's birthday (16th August), exclusively on Amazon!",
+    title: "Paperback Launch: The Lost Soul of Throne (Vol. 1)",
+    description: "Milestone Reached: Volume 1 of 'The Lost Soul of Throne' has officially launched as a physical Paperback Edition on Amazon worldwide!",
     iconName: "Sparkles",
+    highlight: true,
+  },
+  {
+    year: "Next Era • In Writing",
+    title: "The Lost Soul of Throne (Vol. 2) in Active Development",
+    description: "Drafting the high-stakes sequel as Kaelen confronts the fractured realm of Valyria and awakening dragon gods.",
+    iconName: "PenTool",
     highlight: true,
   },
   {
@@ -88,25 +96,30 @@ export const TIMELINE_EVENTS: TimelineEvent[] = [
 
 export const BOOKS_DATA: Record<string, BookLore> = {
   lostSoul: {
-    title: "The Lost Soul of Throne",
-    genre: "Epic Fantasy",
-    status: "Paperback Releasing Aug 16",
+    id: "lostSoul",
+    volumeNumber: 1,
+    title: "The Lost Soul of Throne (Volume 1)",
+    genre: "Epic Fantasy Saga",
+    status: "🎉 Launched • Available on Amazon",
     subtitle: "A vast fantasy saga of kingdoms, ancient magic, and political destiny",
     tagline: "Every decision changes the fate of an entire world.",
     coverImage: lostSoulCoverImg,
     progressPercent: 100,
+    amazonUrl: "https://www.amazon.com",
     releaseAnnouncement: {
       isAnnounced: true,
-      format: "Paperback Edition",
+      isLaunched: true,
+      format: "Paperback Edition (Live Now)",
       volume: "Volume 1",
-      releaseDate: "16th August (Author's Birthday)",
+      releaseDate: "16th August (Birthday Launch)",
       exclusivePlatform: "Exclusive Only on Amazon",
-      badgeText: "🎉 Big News • Birthday Release",
-      details: "Volume 1 of 'The Lost Soul of Throne' is officially making its debut as a physical Paperback Edition on Ansh's birthday, 16th August, exclusively available on Amazon!"
+      badgeText: "🎉 Officially Launched • Available Now",
+      details: "Volume 1 of 'The Lost Soul of Throne' has officially launched! The physical Paperback Edition is live right now, exclusively available on Amazon worldwide.",
+      amazonUrl: "https://www.amazon.com",
     },
     description: "A vast fantasy saga filled with kingdoms, political intrigue, ancient powers, legendary warriors, dragons, gods, betrayal, sacrifice, and the struggle for the throne. Every decision changes the fate of an entire world.",
     featuresList: [
-      "Paperback Release (Vol. 1)",
+      "Paperback Launched (Vol. 1)",
       "Amazon Exclusive",
       "Character Encyclopedia",
       "Kingdom Map",
@@ -144,6 +157,58 @@ export const BOOKS_DATA: Record<string, BookLore> = {
       {
         title: "Chapter 4: Shadows over Solaris",
         excerpt: "Beneath the golden domes of the oasis city, shadows danced with dagger precision. The prophecy was no longer a whispered warning; it was knocking at the citadel gates."
+      }
+    ]
+  },
+  lostSoulVol2: {
+    id: "lostSoulVol2",
+    volumeNumber: 2,
+    title: "The Lost Soul of Throne: Volume 2",
+    genre: "Epic High Fantasy Saga",
+    status: "In Active Writing & Manuscript Drafting",
+    subtitle: "The saga continues: As ancient thrones shatter, primal shadow dragons awaken",
+    tagline: "When kingdoms fall to ash, legends rise from starlight.",
+    coverImage: tlsotVol2CoverImg,
+    progressPercent: 35,
+    description: "Following the explosive climax of Volume 1, Kaelen Aurelius must navigate the fractured Dominion of Valyria as shadows seep across the borderlands. With forbidden dragon bonds testing his loyalty and a clandestine insurrection rising within the Solaris Council, Volume 2 escalates the saga into all-out magical warfare.",
+    featuresList: [
+      "Official Volume 2 Sequel",
+      "Custom Cover Upload Support",
+      "Shadow Dragon Magic",
+      "Sunken Realm Lore",
+      "Chapter 1 Teaser Preview",
+      "Extended Dynasty Trees"
+    ],
+    magicSystem: {
+      name: "Eclipse Dragon-Resonance",
+      description: "An ancient dual-energy paradigm combining celestial radiant light with eclipse shadow fire, previously thought to be extinct.",
+      elements: [
+        { name: "Eclipse Nova", power: "Superheated black flame that nullifies enemy magical wards", color: "#A855F7" },
+        { name: "Solar Starlight", power: "Piercing celestial rays capable of healing shattered bonds", color: "#FBBF24" },
+        { name: "Mind-Echo Telepathy", power: "Subconscious communication across entire dragon squadrons", color: "#06B6D4" },
+        { name: "Titan Shroud", power: "Gravitational shockwaves summoned from planetary tides", color: "#3B82F6" },
+      ]
+    },
+    kingdomMap: {
+      regions: [
+        { name: "Valyria Dominion (Fractured)", ruler: "Lord Kaelen Aurelius", climate: "Smoking Calderas & Sky Fortresses", description: "The war-torn capital struggling to rebuild its fallen dragon sanctuaries." },
+        { name: "The Abyssal Rift", ruler: "The Shadow Sovereign", climate: "Endless Twilight & Obsidian Canyons", description: "A forbidden zone where banished deities slumber in stasis." },
+        { name: "Solaris Under-Citadel", ruler: "Rebel Sun Guild", climate: "Subterranean Crystal Caverns", description: "A clandestine network of rogue spellcasters plotting against the Throne." },
+        { name: "Frostwood Frontier", ruler: "Commander Bryn of Frostfang", climate: "Permafrost & Auroral Spires", description: "The defensive frontline bracing for the coming eclipse invasion." },
+      ]
+    },
+    familyTrees: [
+      { houseName: "House Aurelius (Reformed)", motto: "From Ash, We Reign Supreme", members: ["Lord Kaelen Aurelius", "Lady Lyra the Shadow Weaver", "The Primordial Dragon Ignis"] },
+      { houseName: "The Eclipse Concordat", motto: "Darkness Is the Truest Light", members: ["High Inquisitor Morzan", "Lady Vespera", "The Shadow Beast Malakor"] },
+    ],
+    chapterExcerpts: [
+      {
+        title: "Teaser: The Fractured Crown",
+        excerpt: "The crown of Valyria lay split in two upon the altar. Kaelen picked up the jagged gold fragment. 'Volume 1 was the war for the throne,' he said, feeling the dragon pulse beneath his skin. 'Volume 2 is the war for the soul of this world.'"
+      },
+      {
+        title: "Teaser: Flight over the Abyssal Rift",
+        excerpt: "Wings of starlight cut through the black storm clouds. Below them, ancient obsidian eyes opened in the deep rift. The second era of dragons had begun."
       }
     ]
   },

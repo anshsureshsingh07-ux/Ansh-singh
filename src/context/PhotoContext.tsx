@@ -50,10 +50,18 @@ const initialPhotosMap: Record<string, EditablePhoto> = {
   },
   book_cover_lost_soul: {
     id: 'book_cover_lost_soul',
-    title: 'The Lost Soul of Throne - Cover Art',
+    title: 'The Lost Soul of Throne: Volume 1 - Cover Art',
     category: 'Book Cover',
-    description: 'Official cover artwork for The Lost Soul of Throne.',
+    description: 'Official cover artwork for The Lost Soul of Throne (Volume 1).',
     imageUrl: BOOKS_DATA.lostSoul.coverImage,
+    filterPreset: 'none',
+  },
+  book_cover_lost_soul_vol2: {
+    id: 'book_cover_lost_soul_vol2',
+    title: 'The Lost Soul of Throne: Volume 2 - Cover Art',
+    category: 'Book Cover',
+    description: 'Official cover artwork for The Lost Soul of Throne: Volume 2.',
+    imageUrl: BOOKS_DATA.lostSoulVol2?.coverImage || BOOKS_DATA.lostSoul.coverImage,
     filterPreset: 'none',
   },
   book_cover_until_death: {

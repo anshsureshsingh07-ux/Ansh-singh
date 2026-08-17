@@ -32,8 +32,14 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose 
 
   if (!book) return null;
 
-  const bookCharacters = CHARACTERS_DATA.filter(c => c.bookTitle === book.title);
-  const photoId = book.title.includes('Throne') ? 'book_cover_lost_soul' : 'book_cover_until_death';
+  const bookCharacters = CHARACTERS_DATA.filter(c => 
+    c.bookTitle === book.title || 
+    (book.title.includes('Throne') && c.bookTitle.includes('Throne'))
+  );
+  
+  const photoId = book.volumeNumber === 2 || book.id === 'lostSoulVol2' || book.title.includes('Volume 2')
+    ? 'book_cover_lost_soul_vol2'
+    : (book.title.includes('Throne') ? 'book_cover_lost_soul' : 'book_cover_until_death');
 
   return (
     <div
@@ -169,28 +175,33 @@ export const BookDetailModal: React.FC<BookDetailModalProps> = ({ book, onClose 
               {book.releaseAnnouncement && (
                 <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900 to-orange-500/10 border-2 border-amber-400/50 shadow-xl">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-slate-950 font-black text-xs uppercase tracking-wider">
                       <PartyPopper className="w-3.5 h-3.5" />
-                      Paperback Release Announcement
+                      {book.releaseAnnouncement.isLaunched ? '🎉 Officially Launched • Available Now' : 'Paperback Release Announcement'}
                     </span>
                     <span className="text-xs font-bold text-amber-300 flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      16th August (Birthday Edition)
+                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                      {book.releaseAnnouncement.releaseDate}
                     </span>
                   </div>
                   <h4 className="font-serif text-lg font-bold text-slate-100 mt-2 mb-1">
-                    Volume 1 of "The Lost Soul of Throne" Releasing in Paperback
+                    Volume 1 of "The Lost Soul of Throne" Paperback Edition
                   </h4>
                   <p className="text-sm text-slate-300 leading-relaxed mb-3">
                     {book.releaseAnnouncement.details}
                   </p>
                   <div className="flex flex-wrap items-center gap-3">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950 border border-amber-400/50 text-amber-300 text-xs font-bold">
-                      <ShoppingCart className="w-4 h-4 text-amber-400" />
-                      <span>Platform: Exclusive Only on Amazon</span>
-                    </div>
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 text-xs font-medium">
-                      <span>Format: Premium Physical Paperback Edition</span>
+                    <a
+                      href={book.amazonUrl || 'https://www.amazon.com'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-md transition-transform hover:scale-105"
+                    >
+                      <ShoppingCart className="w-4 h-4 text-slate-950" />
+                      <span>Order Paperback on Amazon</span>
+                    </a>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 text-xs font-medium">
+                      <span>Format: Premium Physical Paperback</span>
                     </div>
                   </div>
                 </div>

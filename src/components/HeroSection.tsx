@@ -36,14 +36,14 @@ export const HeroSection: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[11px] uppercase tracking-widest font-black text-amber-300 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-400/40">
-                  🎉 BIG NEWS
+                  🎉 VOLUME 1 OUT NOW
                 </span>
                 <span className="text-xs text-amber-200 font-bold">
-                  Birthday Special Release • 16th August
+                  Official Amazon Paperback Launch • Volume 2 in Progress!
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-100 font-medium mt-0.5">
-                <strong className="text-amber-300">Volume 1</strong> of <em className="text-white">"The Lost Soul of Throne"</em> is releasing in <strong className="text-amber-200">Paperback Edition</strong> — <span className="underline decoration-amber-400 font-semibold text-amber-300">Exclusive Only on Amazon</span>!
+                <strong className="text-amber-300">Volume 1</strong> of <em className="text-white">"The Lost Soul of Throne"</em> is <span className="underline decoration-amber-400 font-semibold text-emerald-400">Officially Launched</span> on Amazon — and <strong className="text-amber-200">Volume 2</strong> is now in active writing!
               </p>
             </div>
           </motion.a>
