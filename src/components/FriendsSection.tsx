@@ -36,6 +36,7 @@ export const FriendsSection: React.FC = () => {
           {FRIENDS_DATA.map((friend, idx) => {
             const isHighlighted = idx === highlightIdx;
             const isBestFriend = friend.name === 'Devbrat Dhal' || friend.role.includes('Best Friend');
+            const isBestSis = friend.name.includes('Aanchal') || friend.role.toLowerCase().includes('best sis');
 
             return (
               <motion.div
@@ -48,6 +49,8 @@ export const FriendsSection: React.FC = () => {
                 className={`p-6 rounded-2xl bg-slate-900/80 border transition-all duration-500 shadow-xl relative overflow-hidden group cursor-pointer ${
                   isBestFriend
                     ? 'border-amber-400/90 bg-gradient-to-b from-slate-900 via-slate-900 to-amber-950/30 shadow-2xl shadow-amber-500/25 sm:col-span-2 lg:col-span-1'
+                    : isBestSis
+                    ? 'border-rose-400/90 bg-gradient-to-b from-slate-900 via-slate-900 to-rose-950/30 shadow-2xl shadow-rose-500/25 sm:col-span-2 lg:col-span-1'
                     : isHighlighted
                     ? 'border-amber-400/80 bg-slate-900 scale-105 shadow-2xl shadow-amber-500/20'
                     : 'border-slate-800 hover:border-amber-500/40'
@@ -61,8 +64,16 @@ export const FriendsSection: React.FC = () => {
                   </div>
                 )}
 
+                {/* Best Sis Ribbon */}
+                {isBestSis && (
+                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-600 text-white font-bold text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-md shadow-rose-500/20">
+                    <Heart className="w-3 h-3 text-white fill-white" />
+                    <span>Best Sis 🌸</span>
+                  </div>
+                )}
+
                 {/* Rotating Highlight Aura */}
-                {isHighlighted && !isBestFriend && (
+                {isHighlighted && !isBestFriend && !isBestSis && (
                   <div className="absolute top-0 right-0 p-3">
                     <Sparkles className="w-5 h-5 text-amber-400 animate-bounce" />
                   </div>
@@ -71,17 +82,21 @@ export const FriendsSection: React.FC = () => {
                 <div className="flex items-center gap-4 mb-4">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${friend.avatarColor} p-0.5 shadow-lg flex-shrink-0`}>
                     <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                      <span className="font-serif font-bold text-amber-300 text-lg">
+                      <span className={`font-serif font-bold text-lg ${isBestSis ? 'text-rose-300' : 'text-amber-300'}`}>
                         {friend.name.charAt(0)}
                       </span>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                    <h3 className={`font-serif font-bold text-lg transition-colors flex items-center gap-1.5 ${
+                      isBestSis ? 'text-rose-100 group-hover:text-rose-300' : 'text-slate-100 group-hover:text-amber-300'
+                    }`}>
                       {friend.name}
                     </h3>
-                    <span className="text-xs text-amber-400 font-semibold">{friend.role}</span>
+                    <span className={`text-xs font-semibold ${isBestSis ? 'text-rose-400' : 'text-amber-400'}`}>
+                      {friend.role}
+                    </span>
                   </div>
                 </div>
 

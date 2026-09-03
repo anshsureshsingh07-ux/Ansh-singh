@@ -18,10 +18,11 @@ export const AUTHOR_INFO = {
     father: "Suresh Singh",
     mother: "Pushpa Singh",
     brother: "Krish Singh",
+    bestSis: "Aanchal Dakua",
     pet: "Tonny 🐇 (Rabbit)",
     petImage: tonnyRabbitImg,
   },
-  authorImage: authorPortraitImg,
+  authorImage: "https://gxybmdwkmhlycfpncnmi.supabase.co/storage/v1/object/public/ansh'/Screenshot%202026-09-03%20171047.png",
   biography: "Hello! I'm Ansh Singh, a passionate student and aspiring author from Surat, India. I love creating imaginative worlds, compelling characters, and emotionally driven stories. Alongside my education, I spend my time learning new skills, writing novels, and constantly improving my craft. My goal is to create stories that readers remember long after they turn the final page.",
   philosophy: "Stories have the power to outlive their creators. I write worlds where readers can laugh, cry, dream, and believe in the impossible.",
   socials: {
@@ -299,8 +300,9 @@ export const INTERESTS_DATA = [
 
 export const FRIENDS_DATA: Friend[] = [
   { name: "Devbrat Dhal", role: "Best Friend & Primary Confidant", trait: "Best Friend & Analytical Mind", avatarColor: "from-amber-400 via-yellow-500 to-amber-600", quote: "Ansh's closest best friend—sharpening logic, stories, and sharing every major milestone!" },
+  { name: "Aanchal Dakua", role: "Best Sis & Cherished Confidante", trait: "Best Sis • Heartfelt Support & Warmth", avatarColor: "from-rose-500 via-pink-500 to-fuchsia-600", quote: "Ansh's best sis—always there with heartfelt encouragement, sisterly warmth, and first to cheer every chapter!" },
+  { name: "Gatik Sharma", role: "Close Friend & Companion", trait: "Loyal Supporter & Great Energy", avatarColor: "from-sky-500 via-blue-500 to-indigo-600", quote: "A wonderful friend bringing lively energy, loyal support, and sharing in every creative milestone!" },
   { name: "Shivang Thakur", role: "Creative Companion", trait: "Inspirational Thinker", avatarColor: "from-amber-500 to-yellow-600", quote: "Always pushing creative limits!" },
-  { name: "Aanchal Dakua", role: "Literary Reader", trait: "Perceptive Feedback", avatarColor: "from-rose-500 to-pink-600", quote: "First to read and encourage new chapters!" },
   { name: "Kamal Gupta", role: "Tech Explorer", trait: "Innovative Strategist", avatarColor: "from-emerald-500 to-teal-600", quote: "Building future-forward ideas." },
   { name: "Abhir Khare", role: "Story Enthusiast", trait: "Vibrant Imagination", avatarColor: "from-purple-500 to-violet-600", quote: "Fueling epic story debates!" },
   { name: "Ishika Yadav", role: "Creative Advisor", trait: "Artistic Vision", avatarColor: "from-fuchsia-500 to-purple-600", quote: "Bringing warmth and creative energy." },

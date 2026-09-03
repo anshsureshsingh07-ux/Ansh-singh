@@ -137,7 +137,7 @@ export const AboutSection: React.FC = () => {
                 <Heart className="w-4 h-4 text-rose-400" />
                 <span>Family & Support System</span>
               </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
                 <div>
                   <span className="text-xs text-slate-500">Father</span>
                   <p className="font-medium text-slate-200">{AUTHOR_INFO.family.father}</p>
@@ -149,6 +149,13 @@ export const AboutSection: React.FC = () => {
                 <div>
                   <span className="text-xs text-slate-500">Brother</span>
                   <p className="font-medium text-slate-200">{AUTHOR_INFO.family.brother}</p>
+                </div>
+                <div>
+                  <span className="text-xs text-rose-400 font-semibold flex items-center gap-1">
+                    <Heart className="w-3 h-3 text-rose-400 fill-rose-400" />
+                    Best Sis
+                  </span>
+                  <p className="font-medium text-slate-200">{AUTHOR_INFO.family.bestSis || 'Aanchal Dakua'}</p>
                 </div>
               </div>
             </div>
