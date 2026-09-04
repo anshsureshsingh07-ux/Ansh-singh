@@ -98,9 +98,10 @@ export const PhotoProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Ensure author_portrait gets the updated authorImage if it had the old default or local bundle asset
+        // Ensure author_portrait gets the updated authorImage if it had the old default or previous image
         if (parsed.author_portrait && (
           parsed.author_portrait.imageUrl?.includes('author_portrait_1786097530540') ||
+          parsed.author_portrait.imageUrl?.includes('Screenshot%202026-09-03%20171047.png') ||
           !parsed.author_portrait.imageUrl?.startsWith('http')
         )) {
           parsed.author_portrait.imageUrl = AUTHOR_INFO.authorImage;

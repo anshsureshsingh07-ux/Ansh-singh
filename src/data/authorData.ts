@@ -22,7 +22,7 @@ export const AUTHOR_INFO = {
     pet: "Tonny 🐇 (Rabbit)",
     petImage: tonnyRabbitImg,
   },
-  authorImage: "https://gxybmdwkmhlycfpncnmi.supabase.co/storage/v1/object/public/ansh'/Screenshot%202026-09-03%20171047.png",
+  authorImage: "https://gxybmdwkmhlycfpncnmi.supabase.co/storage/v1/object/public/ansh'/WIN_20260807_15_25_04_Pro.jpg",
   biography: "Hello! I'm Ansh Singh, a passionate student and aspiring author from Surat, India. I love creating imaginative worlds, compelling characters, and emotionally driven stories. Alongside my education, I spend my time learning new skills, writing novels, and constantly improving my craft. My goal is to create stories that readers remember long after they turn the final page.",
   philosophy: "Stories have the power to outlive their creators. I write worlds where readers can laugh, cry, dream, and believe in the impossible.",
   socials: {
